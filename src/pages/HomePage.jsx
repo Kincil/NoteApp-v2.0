@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NoteList from '../components/Fragments/NoteList';
 import NoteSearch from '../components/Fragments/NoteSearch';
-import { archiveNote, deleteNote, getActiveNotes, getAllNotes, getArchivedNotes, unarchiveNote } from '../utils/local-data';
+import { archiveNote, deleteNote, getActiveNotes, getAllNotes } from '../utils/local-data';
 import { RiArchive2Line } from 'react-icons/ri';
 import { TiDocumentAdd } from 'react-icons/ti';
 import { Link } from 'react-router';
@@ -13,24 +13,18 @@ const HomePage = () => {
 
   const onDeleteHandler = (id) => {
     deleteNote(id);
-    setNotes(notes);
+    setNotes(getAllNotes());
   };
 
   const onArchiveHandler = (id) => {
     archiveNote(id);
-    setNotes(notes);
-  };
-
-  const onUnarchiveHandler = (id) => {
-    unarchiveNote(id);
-    setNotes(notes);
+    setNotes(getAllNotes());
   };
 
   const onSearchHandler = (searchQuery) => {
     setSearch(searchQuery);
   };
 
-  const archive = getArchivedNotes();
   const unArchive = getActiveNotes();
   const filteredNotes = unArchive.filter((note) => note.title.toLowerCase().includes(search.toLowerCase()));
 
@@ -38,8 +32,6 @@ const HomePage = () => {
     <PageLayout titlePage="Catatan Aktif">
       <NoteSearch onSearch={onSearchHandler} />
       {unArchive.length > 0 ? <NoteList notes={filteredNotes} onDelete={onDeleteHandler} onArchive={onArchiveHandler} /> : <p className="notes-list__empty-message"> Tidak ada Catatan...</p>}
-      <h2>Arsip</h2>
-      {archive.length > 0 ? <NoteList notes={archive} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}
 
       <div className="homepage__action">
         <Link to="/archive" className="action">
