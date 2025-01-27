@@ -1,17 +1,9 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
-const NoteSearch = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const onSearchhandler = (event) => {
-    setSearchQuery(event.target.value);
-    onSearch(event.target.value);
-  };
-
+const NoteSearch = ({ search, searchChange }) => {
   return (
     <div className="note-search">
-      <input type="text" placeholder="Cari Catatan..." onChange={onSearchhandler} value={searchQuery} />
+      <input type="text" placeholder="Cari Catatan..." onChange={(event) => searchChange(event.target.value)} value={search} />
     </div>
   );
 };
@@ -19,5 +11,6 @@ const NoteSearch = ({ onSearch }) => {
 export default NoteSearch;
 
 NoteSearch.propTypes = {
-  onSearch: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  searchChange: PropTypes.func.isRequired,
 };

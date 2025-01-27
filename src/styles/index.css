@@ -303,6 +303,25 @@ textarea::placeholder {
   transform: scale(0.95);
 }
 
+.detail-page {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 60%;
+}
+
+.detail-page__title {
+  font-size: 48px;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.detail-page__body {
+  line-height: 1.5;
+  margin-top: 30px;
+  font-size: 18px;
+  text-align: justify;
+}
+
 @media only screen and (min-width: 500px) {
   .notes-list {
     grid-template-columns: 1fr 1fr;
@@ -313,21 +332,9 @@ textarea::placeholder {
   .notes-list {
     grid-template-columns: repeat(3, 1fr);
   }
-
-  /* .note-search input {
-    min-width: 400px;
-    font-weight: bold;
-    color: white;
-    border: 1px solid #aaa;
-  }
-
-  .note-search input::placeholder {
-    color: white;
-    font-weight: normal;
-  } */
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 950px) {
   .notes-list {
     grid-template-columns: repeat(4, 1fr);
   }
