@@ -13,7 +13,7 @@ const DetailPage = () => {
       <PageLayout titlePage="Detail Catatan">
         {!note ? (
           <div className="detail-page">
-            <h3 className="detail-page__title">Catatan Tidak Ditemukan</h3>
+            <h3 className="detail-page__error">Catatan Tidak Ditemukan</h3>
           </div>
         ) : (
           <div className="detail-page">

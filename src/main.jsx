@@ -9,6 +9,7 @@ import DetailPage from './pages/DetailPage';
 import './styles/index.css';
 import ArchivePage from './pages/ArchivePage';
 import { ToastContainer } from 'react-toastify';
+import ErrorPage from './pages/ErrorPage';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
         <Route path="/add" element={<AddPage />} />
         <Route path="/archive" element={<ArchivePage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
