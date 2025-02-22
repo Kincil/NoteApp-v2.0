@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import CardItem from './CardItem';
 
-export default function NoteList({ notes, onDelete, onArchive }) {
+export default function CardList({ notes, onDelete, onArchive }) {
   return (
     <div className="notes-list">
       {notes.map((note) => (
@@ -11,7 +11,7 @@ export default function NoteList({ notes, onDelete, onArchive }) {
   );
 }
 
-NoteList.propTypes = {
+CardList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,

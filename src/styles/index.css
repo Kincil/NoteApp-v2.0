@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', serif;
   background-color: #fff;
   color: black;
 }
@@ -14,19 +14,10 @@ input,
 textarea {
   padding: 12px;
   margin: 12px 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', serif;
   background-color: transparent;
   color: black;
-  border: 3px solid #000;
   transition: transform 0.3s;
-}
-
-form input:focus,
-textarea:focus {
-  outline: none;
-  transform: scale(1.05);
-  background-color: #000;
-  color: #fff;
 }
 
 input::placeholder,
@@ -48,6 +39,21 @@ textarea::placeholder {
   margin: 8px 0;
   color: white;
   text-decoration: none;
+}
+
+.note-app__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 90px;
+  height: 35px;
+  font-family: 'Outfit', serif;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f3f3f3;
 }
 
 .note-app__body {
@@ -95,23 +101,25 @@ textarea::placeholder {
   margin-bottom: 48px;
 }
 
-.note-search input {
+.note-search__input {
   display: block;
   width: 100%;
   font-weight: bold;
+  border: 3px solid #000;
 }
 
-.note-search input:focus {
+.note-search__input:focus {
   outline: none;
   transform: scale(1.05);
   background-color: #000;
   color: #fff;
 }
 
-.note-input input,
-.note-input textarea {
+.note-input__title,
+.note-input__body {
   display: block;
   width: 100%;
+  border: 3px solid #000;
 }
 
 .note-input__title {
@@ -130,13 +138,21 @@ textarea::placeholder {
   font-weight: bold;
 }
 
-.note-input button {
+.note-input__title:focus,
+.note-input__body:focus {
+  background-color: #000;
+  outline: none;
+  transform: scale(1.05);
+  color: #fff;
+}
+
+.note-input__button {
   display: block;
   width: 70%;
   padding: 10px;
   margin: 0 auto;
   background-color: transparent;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', serif;
   color: #000;
   border: 3px solid #000;
   font-weight: bold;
@@ -146,11 +162,11 @@ textarea::placeholder {
   position: relative;
 }
 
-.note-input button:hover {
+.note-input__button:hover {
   color: #fff;
 }
 
-.note-input button::before {
+.note-input__button::before {
   content: '';
   position: absolute;
   height: 100%;
@@ -163,7 +179,7 @@ textarea::placeholder {
   transition: all 0.5s;
 }
 
-.note-input button:hover::before {
+.note-input__button:hover::before {
   width: 120%;
 }
 
@@ -369,6 +385,96 @@ textarea::placeholder {
 
 .erorr-page__description {
   font-size: 18px;
+}
+
+.auth-layout {
+  --input-focus: #2d8cf0;
+  --font-color: #000;
+  --font-color-sub: #7e7e7e;
+  --bg-color: #111;
+  --main-color: #323232;
+  padding: 20px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  max-width: 350px;
+  margin: 130px auto 0;
+}
+
+.auth-layout form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-layout__title {
+  color: #fff;
+  font-size: 20px;
+  margin: 25px 0 10px;
+}
+
+.auth-layout__input {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: #fefefe;
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 5px 10px;
+  outline: none;
+}
+
+.auth-layout__input::placeholder {
+  color: var(--font-color-sub);
+  opacity: 0.8;
+}
+.auth-layout__input:focus {
+  border: 3px solid #000;
+}
+
+.auth-layout__button {
+  margin: 20px auto 0 auto;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: #fff;
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--font-color-sub);
+}
+
+.auth-layout__button:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(3px, 3px);
+  color: var(--font-color);
+}
+
+.auth-layout__description {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.auth-layout__description a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+.auth-layout__description a:hover {
+  color: var(--font-color-sub);
 }
 
 @media only screen and (min-width: 500px) {

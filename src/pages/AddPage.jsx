@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import PageLayout from '../components/Layout/PageLayout';
+import BodyLayout from '../components/Layout/BodyLayout';
 import { useNavigate } from 'react-router';
-import { addNote } from '../utils/local-data';
 import { toast } from 'react-toastify';
+import Input from '../components/Elements/Input/Input';
+import { addNote } from '../utils/network-data';
 
 const AddPage = () => {
   const [title, setTitle] = useState('');
@@ -23,24 +24,26 @@ const AddPage = () => {
     setBody(event.target.value);
   };
 
-  const onSubmitChange = (event) => {
+  const onSubmitChange = async (event) => {
     event.preventDefault();
-    addNote({ title, body });
+    await addNote({ title, body });
     toast.success('Catatan berhasil ditambahkan');
     navigate('/');
   };
 
   return (
-    <PageLayout titlePage="Tambah Catatan">
+    <BodyLayout titlePage="Tambah Catatan">
       <div className="note-input">
         <form onSubmit={onSubmitChange}>
           <p className="note-input__title__char-limit">Sisa Karakter: {limit}</p>
-          <input type="text" className="note-input__title" placeholder="Ini adalah judul ..." onChange={onTitleChange} value={title} required />
+          <Input type="text" placeholder="Ini adalah judul ..." onChange={onTitleChange} value={title} styling="note-input__title" />
           <textarea className="note-input__body" placeholder="Tuliskan catatanmu di sini ..." onChange={onBodyChange} value={body} required></textarea>
-          <button type="submit">Buat Catatan</button>
+          <button type="submit" className="note-input__button">
+            Buat Catatan
+          </button>
         </form>
       </div>
-    </PageLayout>
+    </BodyLayout>
   );
 };
 

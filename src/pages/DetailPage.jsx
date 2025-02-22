@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PageLayout from '../components/Layout/PageLayout';
+import PageLayout from '../components/Layout/BodyLayout';
 import { getNote } from '../utils/local-data';
 import { useParams } from 'react-router';
 import { showFormattedDate } from '../utils';

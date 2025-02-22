@@ -1,14 +1,21 @@
-import { useState } from 'react';
-import NoteList from '../components/Fragments/NoteList';
-import PageLayout from '../components/Layout/PageLayout';
-import { deleteNote, getAllNotes, getArchivedNotes, unarchiveNote } from '../utils/local-data';
+import { useEffect, useState } from 'react';
+import BodyLayout from '../components/Layout/BodyLayout';
+import { deleteNote, getAllNotes } from '../utils/local-data';
+import CardList from '../components/Fragments/CardList';
+import { getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data';
 
 const ArchivePage = () => {
-  const [notes, setNotes] = useState(getAllNotes());
+  const [notes, setNotes] = useState([]);
   const archive = getArchivedNotes();
 
-  const onUnarchiveHandler = (id) => {
-    unarchiveNote(id);
+  useEffect(() => {
+    getActiveNotes().then(({ data }) => {
+      setNotes(data);
+    });
+  }, []);
+
+  const onUnarchiveHandler = async (id) => {
+    await unarchiveNote(id);
     setNotes(getAllNotes());
   };
 
@@ -19,7 +26,7 @@ const ArchivePage = () => {
 
   return (
     <>
-      <PageLayout titlePage="Arsip">{archive.length > 0 ? <NoteList notes={archive} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}</PageLayout>
+      <BodyLayout titlePage="Arsip">{archive.length > 0 ? <CardList notes={archive} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}</BodyLayout>
     </>
   );
 };
