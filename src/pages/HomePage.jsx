@@ -22,22 +22,30 @@ const HomePage = () => {
     });
   }, []);
 
-  const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(search.toLowerCase()));
-
   const onSearchHandler = (search) => {
     setSearch(search);
     changeSearchParams(search);
   };
 
   const onDeleteHandler = async (id) => {
-    await deleteNote(id);
-    setNotes(notes);
+    const { error } = await deleteNote(id);
+
+    if (!error) {
+      const { data } = await getActiveNotes();
+      setNotes(data);
+    }
   };
 
   const onArchiveHandler = async (id) => {
-    await archiveNote(id);
-    setNotes(notes);
+    const { error } = await archiveNote(id);
+
+    if (!error) {
+      const { data } = await getActiveNotes();
+      setNotes(data);
+    }
   };
+
+  const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <BodyLayout titlePage="Catatan Aktif">

@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageLayout from '../components/Layout/BodyLayout';
-import { getNote } from '../utils/local-data';
 import { useParams } from 'react-router';
 import { showFormattedDate } from '../utils';
+import { getNote } from '../utils/network-data';
 
 const DetailPage = () => {
   const { id } = useParams();
-  const [note, setNote] = useState(getNote(id));
+  const [note, setNote] = useState([]);
+
+  useEffect(() => {
+    getNote(id).then(({ data }) => {
+      setNote(data);
+    });
+  }, [id]);
 
   return (
     <>

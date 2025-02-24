@@ -1,32 +1,41 @@
 import { useEffect, useState } from 'react';
 import BodyLayout from '../components/Layout/BodyLayout';
-import { deleteNote, getAllNotes } from '../utils/local-data';
 import CardList from '../components/Fragments/CardList';
-import { getActiveNotes, getArchivedNotes, unarchiveNote } from '../utils/network-data';
+import { deleteNote, getArchivedNotes, unarchiveNote } from '../utils/network-data';
 
 const ArchivePage = () => {
   const [notes, setNotes] = useState([]);
-  const archive = getArchivedNotes();
+  const filteredNotes = notes.filter((note) => {
+    return note.title.toLowerCase();
+  });
 
   useEffect(() => {
-    getActiveNotes().then(({ data }) => {
+    getArchivedNotes().then(({ data }) => {
       setNotes(data);
     });
   }, []);
 
   const onUnarchiveHandler = async (id) => {
-    await unarchiveNote(id);
-    setNotes(getAllNotes());
+    const { error } = await unarchiveNote(id);
+
+    if (!error) {
+      const { data } = await getArchivedNotes();
+      setNotes(data);
+    }
   };
 
-  const onDeleteHandler = (id) => {
-    deleteNote(id);
-    setNotes(getAllNotes());
+  const onDeleteHandler = async (id) => {
+    const { error } = await deleteNote(id);
+
+    if (!error) {
+      const { data } = await getArchivedNotes();
+      setNotes(data);
+    }
   };
 
   return (
     <>
-      <BodyLayout titlePage="Arsip">{archive.length > 0 ? <CardList notes={archive} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}</BodyLayout>
+      <BodyLayout titlePage="Arsip">{filteredNotes.length > 0 ? <CardList notes={filteredNotes} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}</BodyLayout>
     </>
   );
 };
