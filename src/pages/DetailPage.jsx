@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PageLayout from '../components/Layout/BodyLayout';
 import { useParams } from 'react-router';
 import { showFormattedDate } from '../utils';
 import { getNote } from '../utils/network-data';
+import LocaleContext from '../context/LocaleContext';
 
 const DetailPage = () => {
   const { id } = useParams();
   const [note, setNote] = useState([]);
+  const { locale } = useContext(LocaleContext);
 
   useEffect(() => {
     getNote(id).then(({ data }) => {
@@ -16,10 +18,10 @@ const DetailPage = () => {
 
   return (
     <>
-      <PageLayout titlePage="Detail Catatan">
+      <PageLayout titlePage={locale === 'id' ? 'Detail Catatan' : 'Detail Note'}>
         {!note ? (
           <div className="detail-page">
-            <h3 className="detail-page__error">Catatan Tidak Ditemukan</h3>
+            <h3 className="detail-page__error">{locale === 'id' ? 'Catatan tidak ditemukan' : 'Note not found'}</h3>
           </div>
         ) : (
           <div className="detail-page">

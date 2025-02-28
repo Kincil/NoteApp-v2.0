@@ -1,17 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import BodyLayout from '../components/Layout/BodyLayout';
 import CardList from '../components/Fragments/CardList';
 import { deleteNote, getArchivedNotes, unarchiveNote } from '../utils/network-data';
+import LocaleContext from '../context/LocaleContext';
+import LoadingItem from '../components/Elements/LoadingItem';
 
 const ArchivePage = () => {
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase();
   });
+  const { locale } = useContext(LocaleContext);
 
   useEffect(() => {
     getArchivedNotes().then(({ data }) => {
       setNotes(data);
+      setLoading(false);
     });
   }, []);
 
@@ -35,7 +40,13 @@ const ArchivePage = () => {
 
   return (
     <>
-      <BodyLayout titlePage="Arsip">{filteredNotes.length > 0 ? <CardList notes={filteredNotes} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} /> : <p className="notes-list__empty-message">Tidak Ada Arsipan...</p>}</BodyLayout>
+      {loading ? (
+        <LoadingItem />
+      ) : (
+        <BodyLayout titlePage={locale === 'id' ? 'Arsipan' : 'Archives'}>
+          <CardList notes={filteredNotes} onDelete={onDeleteHandler} onArchive={onUnarchiveHandler} locale={locale} />
+        </BodyLayout>
+      )}
     </>
   );
 };

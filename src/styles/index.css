@@ -1,13 +1,32 @@
+:root {
+  --font-color: #000;
+  --background-color: #fff;
+  --sub-font-color: #aaa;
+  --action-bg: #070707;
+  --action-color: #fff;
+  --action-sub-bg: #111111;
+}
+
+[data-theme='dark'] {
+  --font-color: #fdfdfd;
+  --background-color: #101010;
+  --sub-font-color: #ffffff;
+  --action-bg: #fff;
+  --action-color: #0b0b0b;
+  --action-sub-bg: #eaeaea;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: all 0.3s;
 }
 
 body {
   font-family: 'Outfit', serif;
-  background-color: #fff;
-  color: black;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 input,
@@ -16,7 +35,7 @@ textarea {
   margin: 12px 0;
   font-family: 'Outfit', serif;
   background-color: transparent;
-  color: black;
+  color: var(--font-color);
   transition: transform 0.3s;
 }
 
@@ -41,7 +60,14 @@ textarea::placeholder {
   text-decoration: none;
 }
 
-.note-app__logout {
+.note-app__nav {
+  display: flex;
+  gap: 16px;
+  list-style-type: none;
+}
+
+.note-app__logout,
+.note-app__translate {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +80,23 @@ textarea::placeholder {
   border-radius: 5px;
   cursor: pointer;
   background-color: #f3f3f3;
+}
+
+.note-app__theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 35px;
+  height: 35px;
+  font-size: 24px;
+  font-family: 'Outfit', serif;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
 }
 
 .note-app__body {
@@ -88,8 +131,8 @@ textarea::placeholder {
   width: 70px;
   height: 70px;
   border-radius: 50px;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--action-bg);
+  color: var(--background-color);
   padding: 8px;
   cursor: pointer;
 }
@@ -111,8 +154,8 @@ textarea::placeholder {
 .note-search__input:focus {
   outline: none;
   transform: scale(1.05);
-  background-color: #000;
-  color: #fff;
+  background-color: var(--action-bg);
+  color: var(--action-color);
 }
 
 .note-input__title,
@@ -130,7 +173,7 @@ textarea::placeholder {
   font-size: 14px;
   font-weight: 500;
   text-align: right;
-  color: #000;
+  color: var(--font-color);
 }
 
 .note-input__body {
@@ -140,10 +183,10 @@ textarea::placeholder {
 
 .note-input__title:focus,
 .note-input__body:focus {
-  background-color: #000;
+  background-color: var(--action-bg);
   outline: none;
   transform: scale(1.05);
-  color: #fff;
+  color: var(--action-color);
 }
 
 .note-input__button {
@@ -153,7 +196,7 @@ textarea::placeholder {
   margin: 0 auto;
   background-color: transparent;
   font-family: 'Outfit', serif;
-  color: #000;
+  color: var(--font-color);
   border: 3px solid #000;
   font-weight: bold;
   cursor: pointer;
@@ -163,7 +206,7 @@ textarea::placeholder {
 }
 
 .note-input__button:hover {
-  color: #fff;
+  color: var(--action-color);
 }
 
 .note-input__button::before {
@@ -174,7 +217,7 @@ textarea::placeholder {
   left: -20px;
   bottom: 0;
   transform: skewX(45deg);
-  background-color: #000;
+  background-color: var(--action-bg);
   z-index: -1;
   transition: all 0.5s;
 }
@@ -183,7 +226,7 @@ textarea::placeholder {
   width: 120%;
 }
 
-.notes-list {
+.cards-list {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: minmax(min-content, max-content);
@@ -191,30 +234,32 @@ textarea::placeholder {
   margin-bottom: 48px;
 }
 
-.notes-list__empty-message {
+.cards-list__empty-message {
   text-align: center;
-  color: #aaa;
+  color: var(--sub-font-color);
+  font-weight: bold;
+  width: 420%;
 }
 
 .note-item {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 6px solid #000;
-  box-shadow: 8px 8px 0 #000;
+  background: var(--background-color);
+  border: 6px solid var(--action-bg);
+  box-shadow: 8px 8px 0 var(--action-sub-bg);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .note-item:hover {
   transform: translate(-5px, -5px);
-  box-shadow: 17px 17px 0 #000;
+  box-shadow: 17px 17px 0 var(--action-sub-bg);
 }
 
 .note-item__content {
   padding: 12px;
   flex: 1;
-  color: white;
+  color: var(--action-color);
 }
 
 .note-item__title {
@@ -222,7 +267,7 @@ textarea::placeholder {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: #000;
+  color: var(--font-color);
   text-transform: uppercase;
   margin-bottom: 8px;
   display: block;
@@ -236,7 +281,7 @@ textarea::placeholder {
   left: 0;
   width: 90%;
   height: 3px;
-  background-color: #000;
+  background-color: var(--action-bg);
   transform: translateX(-100%);
   transition: transform 0.3s;
 }
@@ -248,13 +293,13 @@ textarea::placeholder {
 .note-item__date {
   font-size: 12px;
   margin-bottom: 8px;
-  color: #292929;
+  color: var(--font-color);
 }
 
 .note-item__body {
   font-size: 14px;
   font-weight: 500;
-  color: #000;
+  color: var(--font-color);
 }
 
 .note-item__action {
@@ -267,8 +312,8 @@ textarea::placeholder {
   position: relative;
   overflow: hidden;
   border: 3px solid #000;
-  background: #000;
-  color: #fff;
+  background: var(--action-bg);
+  color: var(--action-color);
   padding: 8px;
   font-weight: bold;
   text-transform: uppercase;
@@ -286,7 +331,7 @@ textarea::placeholder {
   width: 100%;
   height: 105%;
   background-color: #e40000;
-  color: #fff;
+  color: var(--action-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,7 +346,7 @@ textarea::placeholder {
   width: 100%;
   height: 105%;
   background-color: #21c700;
-  color: #fff;
+  color: var(--action-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -349,7 +394,7 @@ textarea::placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
 }
 
 .erorr-page__title {
@@ -391,20 +436,20 @@ textarea::placeholder {
   --input-focus: #2d8cf0;
   --font-color: #000;
   --font-color-sub: #7e7e7e;
-  --bg-color: #111;
-  --main-color: #323232;
+  --bg-color: #0a0a0a;
+  --main-color: #1d1d1d;
   padding: 20px;
   background: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 14px;
   border-radius: 5px;
   border: 2px solid var(--main-color);
   box-shadow: 4px 4px var(--main-color);
   max-width: 350px;
-  margin: 130px auto 0;
+  margin: 96px auto 0;
 }
 
 .auth-layout form {
@@ -418,6 +463,11 @@ textarea::placeholder {
   color: #fff;
   font-size: 20px;
   margin: 25px 0 10px;
+}
+
+.auth_layout__subtitle {
+  color: #fff;
+  font-size: 14px;
 }
 
 .auth-layout__input {
@@ -438,6 +488,7 @@ textarea::placeholder {
   color: var(--font-color-sub);
   opacity: 0.8;
 }
+
 .auth-layout__input:focus {
   border: 3px solid #000;
 }
@@ -473,24 +524,89 @@ textarea::placeholder {
   color: white;
   font-weight: bold;
 }
+
 .auth-layout__description a:hover {
   color: var(--font-color-sub);
 }
 
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(140px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: relative;
+  width: 100px;
+  height: 200px;
+  background: var(--action-bg);
+  border-radius: 40px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  border-radius: 50%;
+  left: 15px;
+  animation: drop 5s ease-in-out infinite;
+}
+.bubble1 {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  border-radius: 50%;
+  left: 1px;
+  animation: drop 3s ease-in-out infinite;
+}
+.bubble2 {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  border-radius: 50%;
+  left: 30px;
+  animation: drop 4s ease-in-out infinite;
+}
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  border-radius: 50%;
+  left: 50px;
+  animation: drop 6s ease-in-out infinite;
+}
+
 @media only screen and (min-width: 500px) {
-  .notes-list {
+  .cards-list {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media only screen and (min-width: 800px) {
-  .notes-list {
+  .cards-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media only screen and (min-width: 950px) {
-  .notes-list {
+  .cards-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
